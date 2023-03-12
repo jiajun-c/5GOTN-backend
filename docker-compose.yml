@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:12-alpine
+    container_name: "db"
+    restart: on-failure
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      TZ: Asia/Shanghai
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./data/db:/var/lib/postgresql/data"
