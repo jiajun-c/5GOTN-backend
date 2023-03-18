@@ -4,16 +4,20 @@ package pb;
 
 service DataService {
   // Sends a Data
-  rpc SendData(Data) returns (Data) {}
+  rpc SendData(DataRequest) returns (DataReply) {}
 }
 //add for Data
-message Data {
+message DataRequest {
     int32 clogid = 1;//日志id
     int32 cneid = 2;//网元id
-    string clinport = 3;//线路端口字符串（定位到具体端口
+    string clineport = 3;//线路端口字符串（定位到具体端口
     string clocationinfo = 4;//设备定位信息（从中可以提取出空间信息）
     string coccurutctime = 5;//告警时间
     int32 calarmcode = 6;//告警代码(告警类型
     int32 calarmlevel = 7;//设备告警等级
 
+}
+
+message DataReply{
+    repeated DataRequest data = 1;//返回的是与DataRequest具有相同定义的数组
 }
