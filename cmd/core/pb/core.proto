@@ -1,19 +1,14 @@
 syntax = "proto3";
 package pb;
 
-// 传入训练数据请求结构
-message TrainRequest {
-  string file_name = 1;     // 文件名
-  bytes file_content = 2;   // 文件内容
-}
+//// 传入训练数据请求结构
+//message TrainRequest {
+//  string file_name = 1;     // 文件名
+//  bytes file_content = 2;   // 文件内容
+//}
 
-// 传入训练数据响应结构
-message TrainResponse {
-  bool success = 1;         // 响应结果（是否成功）
-}
-
-// 请求数据结构
-message DataRequest {
+// 标准一条数据的数据结构
+message Data {
   int32 cneid = 1;          // 网元ID
   string clineport = 2;     // 线路端口字符串
   string clocationinfo = 3; // 设备定位信息
@@ -22,39 +17,48 @@ message DataRequest {
   int32 calarmlevel = 6;    // 设备告警等级
 }
 
-// 预警返回的数据结构
+// 传入训练数据的数组
+message TrainRequest{
+  repeated Data trainrequest = 1;
+}
+// 返回是否成功完成传入
+message TrainResponse {
+  bool success = 1;         // 响应结果（是否成功）
+}
+
+// 传入需要进行预测的告警序列
+message AlertRequest {
+  repeated Data datarequest = 1;  // 请求数据
+}
+
+// 预测结果
 message DataResponse {
-  repeated DataRequest data = 1;  // 返回的数据数组
+  repeated Data dataresponse = 1;  // 返回的数据数组
   bool success = 2;               // 是否成功返回
 }
 
-// 预警请求结构
-message AlertRequest {
-  DataRequest datarequest = 1;  // 请求数据
-}
-
-// 预警响应结构
+// 返回预测结果
 message AlertResponse {
   DataResponse dataresponse = 1;  // 返回数据
 }
 
-// 关联分析请求
+// 传入进行训练信号
 message CorrelationAnalysisRequest {
-  // 只需要点击按钮，不用定义具体的类型
+  // 客户端只需要点击“训练”按钮
 }
 
-// 关联分析响应
+// 返回训练完成标志
 message CorrelationAnalysisResponse {
-  bool success = 1; //  是否完成关联分析
+  bool success = 1; //  是否完成训练
 }
 
 // 定义服务接口
-// 服务的顺序为：1.传入（新增）训练数据 2.进行关联分析 3.进行模拟预警
+// 服务的顺序为：1.传入（新增）数据 2.进行训练 3.预测
 service core {
   // 传入训练数据
   rpc Train (TrainRequest) returns (TrainResponse) {}
-  // 关联分析
+  // 训练
   rpc CorrelationAnalysis (CorrelationAnalysisRequest) returns (CorrelationAnalysisResponse) {}
-  // 预警
+  // 预测
   rpc Alert (AlertRequest) returns (AlertResponse) {}
 }
