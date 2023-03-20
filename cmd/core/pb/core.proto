@@ -1,0 +1,34 @@
+syntax = "proto3";
+package pb;
+
+message TrainRequest {
+
+}
+
+message TrainResponse {
+
+}
+
+message AlertRequest {
+
+}
+
+message AlertResponse {
+
+}
+
+message CorrelationAnalysisRequest {
+
+}
+
+message CorrelationAnalysisResponse {
+
+}
+service core {
+  // 传入训练数据
+  rpc Train (TrainRequest) returns (TrainResponse) {}
+  // 预警
+  rpc Alert (AlertRequest) returns (AlertResponse) {}
+  // 关联分析
+  rpc CorrelationAnalysis (CorrelationAnalysisRequest) returns (CorrelationAnalysisResponse) {}
+}
