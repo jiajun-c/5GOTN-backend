@@ -1,34 +1,60 @@
 syntax = "proto3";
 package pb;
 
+// 传入训练数据请求结构
 message TrainRequest {
-
+  string file_name = 1;     // 文件名
+  bytes file_content = 2;   // 文件内容
 }
 
+// 传入训练数据响应结构
 message TrainResponse {
-
+  bool success = 1;         // 响应结果（是否成功）
 }
 
+// 请求数据结构
+message DataRequest {
+  int32 cneid = 1;          // 网元ID
+  string clineport = 2;     // 线路端口字符串
+  string clocationinfo = 3; // 设备定位信息
+  string coccurutctime = 4; // 告警时间
+  int32 calarmcode = 5;     // 告警代码
+  int32 calarmlevel = 6;    // 设备告警等级
+}
+
+// 预警返回的数据结构
+message DataResponse {
+  repeated DataRequest data = 1;  // 返回的数据数组
+  bool success = 2;               // 是否成功返回
+}
+
+// 预警请求结构
 message AlertRequest {
-
+  DataRequest datarequest = 1;  // 请求数据
 }
 
+// 预警响应结构
 message AlertResponse {
-
+  DataResponse dataresponse = 1;  // 返回数据
 }
 
+// 关联分析请求
 message CorrelationAnalysisRequest {
-
+  // 只需要点击按钮，不用定义具体的类型
 }
 
+// 关联分析响应
 message CorrelationAnalysisResponse {
-
+  bool success = 1; //  是否完成关联分析
 }
+
+// 定义服务接口
+// 服务的顺序为：1.传入（新增）训练数据 2.进行关联分析 3.进行模拟预警
 service core {
   // 传入训练数据
   rpc Train (TrainRequest) returns (TrainResponse) {}
-  // 预警
-  rpc Alert (AlertRequest) returns (AlertResponse) {}
   // 关联分析
   rpc CorrelationAnalysis (CorrelationAnalysisRequest) returns (CorrelationAnalysisResponse) {}
+  // 预警
+  rpc Alert (AlertRequest) returns (AlertResponse) {}
 }
