@@ -3,7 +3,7 @@ version: "3"
 services:
   db:
     image: postgres:12-alpine
-    container_name: "db"
+    container_name: "5Gdb"
     restart: on-failure
     environment:
       POSTGRES_USER: admin
