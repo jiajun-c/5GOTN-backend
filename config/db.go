@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
 	"otn/dal"
@@ -22,6 +23,7 @@ func LoadDB() {
 	var err error
 	driver := viper.GetString("db.driver")
 	dsn := viper.GetString("db.dsn")
+	fmt.Println(dsn)
 	Db, err = xorm.NewEngine(driver, dsn)
 	if err != nil {
 		panic("failed to initialize the database")

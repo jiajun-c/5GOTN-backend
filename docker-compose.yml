@@ -3,13 +3,23 @@ version: "3"
 services:
   db:
     image: postgres:12-alpine
-    container_name: "5Gdb"
+    container_name: 5Gdb
     restart: on-failure
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       TZ: Asia/Shanghai
-    ports:
-      - "5432:5432"
     volumes:
       - "./data/db:/var/lib/postgresql/data"
+      - "./scripts/init.sql:/docker-entrypoint-initdb.d/create_tables.sql"
+
+  backend:
+    image: walawalawala/otn-backend
+    container_name: backend
+    restart: on-failure
+    ports:
+      - "28080:8080"
+    volumes:
+      - "./config.yaml:/config.yaml"
+    depends_on:
+      - db
