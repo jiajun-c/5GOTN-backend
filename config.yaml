@@ -1,0 +1,6 @@
+db:
+  dsn: postgres://admin:admin@5Gdb:5432/hust?sslmode=disable
+  driver: postgres
+
+api:
+  addr: ":8080"
