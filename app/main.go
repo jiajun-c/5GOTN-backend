@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/viper"
 	"otn/api/router"
 	"otn/config"
+	"otn/middlewares"
 )
 
 func init() {
@@ -13,6 +14,7 @@ func init() {
 
 func main() {
 	r := gin.Default()
+	r.Use(middlewares.Cors())
 	router.Route(r)
 	addr := viper.GetString("api.addr")
 	r.Run(addr)
