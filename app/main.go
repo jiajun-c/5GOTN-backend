@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 	"otn/api/router"
 	"otn/config"
 	"otn/middlewares"
+
+	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 )
 
 func init() {
