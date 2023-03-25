@@ -6,6 +6,7 @@ import (
 
 func init() {
 	err := Load("/config.yaml")
+	//err := Load("/home/archhh/work/5GOTN-backend/config.yaml")
 	if err != nil {
 		panic(err)
 	}

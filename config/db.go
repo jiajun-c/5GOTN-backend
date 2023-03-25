@@ -30,4 +30,5 @@ func LoadDB() {
 	}
 	//Db.SetMapper(names.GonicMapper{})
 	CheckTable(dal.Equip{})
+	CheckTable(dal.Record{})
 }

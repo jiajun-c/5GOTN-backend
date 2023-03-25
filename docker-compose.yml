@@ -9,6 +9,8 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       TZ: Asia/Shanghai
+    ports:
+      - "5432:5432"
     volumes:
       - "./data/db:/var/lib/postgresql/data"
       - "./scripts/init.sql:/docker-entrypoint-initdb.d/create_tables.sql"

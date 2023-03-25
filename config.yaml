@@ -4,3 +4,8 @@ db:
 
 api:
   addr: ":8080"
+
+auth:
+  secret-key: "opensource"
+  username: "admin"
+  password: "admin"

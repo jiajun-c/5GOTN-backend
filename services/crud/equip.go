@@ -37,7 +37,7 @@ func GetAllEquip() ([]*dal.Equip, error) {
 
 func GetOneEquip(id int64) (*dal.Equip, error) {
 	var equip dal.Equip
-	_, err := config.Db.Get(&equip)
+	_, err := config.Db.ID(id).Get(&equip)
 	if err != nil {
 		return nil, err
 	}
