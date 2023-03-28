@@ -16,6 +16,7 @@ func init() {
 func main() {
 	r := gin.Default()
 	r.Use(middlewares.Cors())
+
 	router.Route(r)
 	addr := viper.GetString("api.addr")
 	r.Run(addr)

@@ -27,5 +27,8 @@ func Route(engine *gin.Engine) {
 	record.POST("/insert", handler.InsertRecord)
 	record.GET("/all", handler.GetAllRecords)
 	record.GET("/some", handler.FilterRecord)
+
+	train := admin.Group("/train")
+	train.POST("/input", handler.Train)
 	AdminRoute(engine)
 }

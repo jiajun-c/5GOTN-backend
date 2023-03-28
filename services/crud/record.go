@@ -14,11 +14,11 @@ func GetAllRecords() ([]*dal.Record, error) {
 	}
 	return records, nil
 }
-func SelectRecords(start, end time.Time, warning_grade, device_id int64, device_address string) ([]*dal.Record, error) {
+func SelectRecords(start, end time.Time, device_id int64, device_address string) ([]*dal.Record, error) {
 	records := make([]*dal.Record, 0)
 	//s := start.Format("2006-01-02 15:04:05")
 	//e := end.Format("2006-01-02 15:04:05")
-	err := config.Db.Where("warning_time >= ? and warning_time <= ? and warning_grade = ? and device_id = ? and device_address = ?", start, end, warning_grade, device_id, device_address).Table("tb_record").Find(&records)
+	err := config.Db.Where("warning_time >= ? and warning_time <= ? and device_id = ? and device_address = ?", start, end, device_id, device_address).Table("tb_record").Find(&records)
 	if err != nil {
 		return nil, err
 	}
