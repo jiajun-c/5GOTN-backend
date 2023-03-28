@@ -1,27 +1,22 @@
 syntax = "proto3";
 package pb;
 
-//// 传入训练数据请求结构
-//message TrainRequest {
-//  string file_name = 1;     // 文件名
-//  bytes file_content = 2;   // 文件内容
+// 传入数据请求结构
+message TrainRequest {
+  string file_name = 1;     // 文件名
+  bytes file_content = 2;   // 文件内容
+}
+
+//// 训练数据的数据结构，也就是放在数据库中的数据
+//message Data {
+//  int32 clogid = 1;         // 日志ID
+//  int32 calarmcode = 2;     // 告警代码
+//  int32 cneid = 3;          // 网元ID
+//  int32 calarmlevel =4;     // 告警等级
+//  string coccuructime = 5;  // 告警时间
+//  string clocationinfo = 6; // 设备定位信息
+//  string clinport = 7;      // 线路端口字符串
 //}
-
-// 训练数据的数据结构，也就是放在数据库中的数据
-message Data {
-  int32 clogid = 1;         // 日志ID
-  int32 calarmcode = 2;     // 告警代码
-  int32 cneid = 3;          // 网元ID
-  string coccuructime = 4;  // 告警时间
-  string ccleaructime = 5;  // 清除告警时间
-  string clocationinfo = 6; // 设备定位信息
-  string clinport = 7;      // 线路端口字符串
-}
-
-// 传入数组
-message TrainRequest{
-  repeated Data trainrequest = 1;
-}
 // 返回是否成功完成传入
 message TrainResponse {
   bool success = 1;         // 响应结果（是否成功）
@@ -29,13 +24,13 @@ message TrainResponse {
 
 //传入的需要预测的数据结构
 message Datainput{
-  int32 clogid = 1;
-  int32 calarmcode = 2;
-  int32 cneid = 3;
-  string coccuructime = 4;
-  string ccleaructime = 5;//
-  string clocationinfo = 6;
-  string clinport = 7;
+  int32 clogid = 1;         // 日志ID
+  int32 calarmcode = 2;     // 告警代码
+  int32 cneid = 3;          // 网元ID
+  int32 calarmlevel =4;     // 告警等级
+  string coccuructime = 5;  // 告警时间
+  string clocationinfo = 6; // 设备定位信息
+  string clinport = 7;      // 线路端口字符串
 }
 
 // 传入需要进行预测的告警序列
