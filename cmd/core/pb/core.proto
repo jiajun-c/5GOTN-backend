@@ -9,7 +9,11 @@ message TrainRequest {
 
 // 返回是否成功完成传入
 message TrainResponse {
-  bool success = 1;         // 响应结果（是否成功）
+  int32 all_account = 1;         // 返回数据的所有值
+  int32 level0 = 2;              // 提示数据的个数
+  int32 level1 = 3;              // 次要数据的个数
+  int32 level2 = 4;              // 主要数据的个数
+  int32 level3 = 5;              // 紧急数据的个数
 }
 
 //传入的需要预测的数据结构
@@ -29,8 +33,9 @@ message AlertRequest {
   bytes locToIndexOflocs_content =8;
   repeated Datainput datarequest = 9;  // 请求数据
 }
-
-// 传出的预测结果序列数据结构
+// 前后交互的数据，传入参照
+// 1028-9-上饶余干康山-OADM2:EMUP_F1K[00]:14
+// 格式为int-int-string-string-string:string-string[]
 message Dataoutput{
   string clocationinfo = 1;
 }
