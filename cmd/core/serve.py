@@ -39,10 +39,12 @@ class CoreServicer(core_pb2_grpc.coreServicer):
         return response
 
 def serve():
+    port = '8080'
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     core_pb2_grpc.add_coreServicer_to_server(CoreServicer(), server)
-    server.add_insecure_port('[::]:8080')
+    server.add_insecure_port('[::]:'+port)
     server.start()
+    print("server started, listening on port 8080")
     server.wait_for_termination()
 
 if __name__ == '__main__':
