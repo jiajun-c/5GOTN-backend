@@ -1,0 +1,15 @@
+FROM python:3.9 AS build
+
+# 安装Java
+RUN apt-get update && \
+    apt-get install -y default-jre default-jdk
+WORKDIR /core
+
+COPY . /core
+
+RUN pip install -r requirements.txt && \
+    pip freeze > requirements.txt.lock
+# 使用控制台进行控制
+
+CMD ["python","serve.py"]
+EXPOSE 8000
