@@ -1,12 +1,12 @@
 syntax = "proto3";
 package pb;
 
-// 传入数据请求结构，文件格式
+// 传入文件路径
 message AnalyseRequest {
   string file_path = 1;
 }
 
-// 返回是否成功完成传入
+// 返回初步分析结果
 message AnalyseResponse {
   int32 all_account = 1;         // 返回数据的所有值
   int32 level0 = 2;              // 提示数据的个数
@@ -14,12 +14,12 @@ message AnalyseResponse {
   int32 level2 = 4;              // 主要数据的个数
   int32 level3 = 5;              // 紧急数据的个数
 }
-// 传入进行训练信号，需要读入文件内容
+// 传入文件路径
 message TrainRequest {
   string file_path = 1;
 }
 
-// 返回训练完成返回内容
+// 返回训练完成标志
 message TrainResponse {
   bool success = 1; //  是否完成训练
 }
