@@ -2,19 +2,28 @@ syntax = "proto3";
 package pb;
 
 // 传入数据请求结构，文件格式
-message TrainRequest {
-  string file_name = 1;     // 文件名
-  bytes file_content = 2;   // 文件内容
+message AnalyseRequest {
+  string file_path = 1;
 }
 
 // 返回是否成功完成传入
-message TrainResponse {
+message AnalyseResponse {
   int32 all_account = 1;         // 返回数据的所有值
   int32 level0 = 2;              // 提示数据的个数
   int32 level1 = 3;              // 次要数据的个数
   int32 level2 = 4;              // 主要数据的个数
   int32 level3 = 5;              // 紧急数据的个数
 }
+// 传入进行训练信号，需要读入文件内容
+message TrainRequest {
+  string file_path = 1;
+}
+
+// 返回训练完成返回内容
+message TrainResponse {
+  bool success = 1; //  是否完成训练
+}
+
 
 //传入的需要预测的数据结构
 message Datainput{
@@ -23,15 +32,7 @@ message Datainput{
 
 // 传入需要进行预测的告警序列
 message AlertRequest {
-  string model_name = 1;     // 训练完成后的模型名
-  bytes model_content = 2;   // 模型内容
-  string train_name = 3;     // 训练完成后的训练数据（需要进行预测时使用
-  bytes  train_content = 4;
-  string loc_name = 5;      //训练完成后的反索引内容
-  bytes  loc_content = 6;
-  string locToIndexOflocs_name = 7;   //训练完成后的定位信息
-  bytes locToIndexOflocs_content =8;
-  repeated Datainput datarequest = 9;  // 请求数据
+  repeated Datainput datarequest = 1;  // 请求数据
 }
 // 前后交互的数据，传入参照
 // 1028-9-上饶余干康山-OADM2:EMUP_F1K[00]:14
@@ -43,35 +44,16 @@ message Dataoutput{
 // 预测结果
 message AlertResponse {
   repeated Dataoutput dataresponse = 1;  // 返回的数据数组
-  string predict_resutlt = 2;            //返回的提示信息
 }
 
-// 传入进行训练信号，需要读入文件内容
-message CorrelationAnalysisRequest {
-  string file_name = 1;     // 文件名
-  bytes file_content = 2;   // 文件内容
-}
-
-// 返回训练完成返回内容
-message CorrelationAnalysisResponse {
-  bool success = 1; //  是否完成训练
-  string model_name = 2;     // 训练完成后的模型名
-  bytes model_content = 3;   // 模型内容
-  string train_name = 4;     // 训练完成后的训练数据（需要进行预测时使用
-  bytes  train_content = 5;
-  string loc_name = 6;      //训练完成后的反索引内容
-  bytes  loc_content = 7;
-  string locToIndexOflocs_name = 8;   //训练完成后的定位信息
-  bytes locToIndexOflocs_content =9;
-}
 
 // 定义服务接口
-// 服务的顺序为：1.传入（新增）数据 2.进行训练 3.预测
+// 服务的顺序为：1.传入数据 2.进行训练 3.预测
 service core {
   // 传入训练数据
-  rpc Train (TrainRequest) returns (TrainResponse) {}
+  rpc Analyse (AnalyseRequest) returns (AnalyseResponse) {}
   // 训练
-  rpc CorrelationAnalysis (CorrelationAnalysisRequest) returns (CorrelationAnalysisResponse) {}
+  rpc Train (TrainRequest) returns (TrainResponse) {}
   // 预测
   rpc Alert (AlertRequest) returns (AlertResponse) {}
 }
