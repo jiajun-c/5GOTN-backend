@@ -11,5 +11,5 @@ RUN pip install -r requirements.txt && \
     pip freeze > requirements.txt.lock
 # 使用控制台进行控制
 
-CMD ["python","serve.py"]
+CMD ["python","./code/serve.py"]
 EXPOSE 8000
