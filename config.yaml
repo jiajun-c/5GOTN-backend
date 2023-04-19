@@ -3,4 +3,4 @@ db:
   driver: postgres
 
 api:
-  addr: ":8080"
+  addr: ":8000"

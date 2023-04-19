@@ -18,8 +18,16 @@ services:
     container_name: backend
     restart: on-failure
     ports:
-      - "28080:8080"
+      - "28080:8000"
     volumes:
       - "./config.yaml:/config.yaml"
     depends_on:
       - db
+  core:
+    image: miaomiao86/core2.0
+    container_name: core2.0
+    restart: on-failure
+    ports:
+      - "8000:8000"
+    depends_on:
+      - backend
