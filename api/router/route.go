@@ -1,9 +1,10 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
 	"otn/api/handler"
 	"otn/middlewares"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Route(engine *gin.Engine) {

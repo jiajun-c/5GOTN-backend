@@ -17,7 +17,6 @@ func TestInsertRecord(t *testing.T) {
 		DevicePort:    "120",
 		WarningTime:   ti,
 		WarningCode:   0,
-		WarningGrade:  0,
 	})
 }
 
@@ -34,6 +33,6 @@ func TestSelectRecords(t *testing.T) {
 	s := start.Format("2006-01-02 15:04:05")
 	println(s)
 	println(end.String())
-	records, _ := SelectRecords(start, end, 1, 2, "")
+	records, _ := SelectRecords(start, end, 1, "")
 	println(len(records))
 }
