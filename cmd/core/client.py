@@ -3,6 +3,8 @@ import pandas as pd
 
 import core_pb2
 import core_pb2_grpc
+
+
 def read_data(file_path):
     '''读取初始表数据，先转成csv格式'''
     df = pd.read_csv( \
@@ -19,8 +21,9 @@ def read_data(file_path):
         low_memory=False, encoding="gbk")
     data = df.values
     return data
-def run():
 
+
+def run():
     with grpc.insecure_channel('[::1]:8000') as channel:
         client = core_pb2_grpc.coreStub(channel)
 
@@ -38,7 +41,7 @@ def run():
                 clineport=str(row[6])
             )
             request1.data.append(data_struct)
-        #print(request1)
+        # print(request1)
         response1 = client.Analyse(request1)
         print("Response: all_account=%d, level0=%d, level1=%d, level2=%d, level3=%d" % (
             response1.all_account, response1.level0, response1.level1, response1.level2, response1.level3))
@@ -82,7 +85,6 @@ def run():
                 print("- clocationinfo=%s" % dataoutput.clocationinfo)
         except Exception as e:
             print("Error")
-
 
 
 if __name__ == '__main__':

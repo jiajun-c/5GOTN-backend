@@ -31,5 +31,7 @@ func Route(engine *gin.Engine) {
 
 	train := admin.Group("/train")
 	train.POST("/input", handler.Train)
+	train.POST("/start", handler.StartTrain)
+	train.POST("/alert", handler.Alert)
 	AdminRoute(engine)
 }
