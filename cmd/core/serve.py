@@ -2,6 +2,9 @@ import pickle
 
 import grpc
 from concurrent import futures
+
+import pandas as pd
+
 import core_pb2
 import core_pb2_grpc
 import analyse
@@ -39,10 +42,23 @@ class CoreServicer(core_pb2_grpc.coreServicer):
     def Analyse(self, request, context):
         # 处理请求数据
         print("Testing Analyse RPC...")
-        data = core_pb2.AnalyseRequest.FromString(request.data)
-        # 将data字段写入到temp.csv文件中
-        with open(file_path, "wb") as f:
-            f.write(data.data)
+        new_data = []
+        data = request.data
+        for item in data:
+            item_data = [
+                item.clogid,
+                item.calarmcode,
+                item.cneid,
+                item.calarmlevel,
+                item.coccurutctime,
+                item.clocationinfo,
+                item.clineport
+            ]
+            new_data.append(item_data)
+        # 写入到temp.csv文件中
+        df = pd.DataFrame(new_data, columns=['logid', 'alarmcode', 'neid', 'alarmlevel', 'occurtime', 'locationinfo', 'lineport'])
+        #print(df)
+        df.to_csv(file_path, index=False, encoding="gbk")
         # 分析数据
         all_account,level0,level1,level2,level3 = analyse.Analyse(file_path)
 
@@ -59,18 +75,28 @@ class CoreServicer(core_pb2_grpc.coreServicer):
         if request.active == True:
             state = train.Train(file_path)
             return core_pb2.TrainResponse(success=state)
-
     def Alert(self, request, context):
         print("Testing Alert RPC...")
         datarequest = request.datarequest
-        print(datarequest)
+        # print(datarequest)
         # 进行预测
-        result_list = predict([data.clocationinfo for data in datarequest])
+        result_list = []
+        input_data = []
+        for data in datarequest:
+            print(data)
+            input_data.append(data.clocationinfo)
+        print(input_data)
+        list = predict(input_data)
+        for sublist in list:
+            for item in sublist:
+                if item not in result_list:
+                    result_list.extend(sublist)
+        print(result_list)
         dataoutput_list = []
-        for result in result_list[0]:
+        for result in result_list:
             dataoutput = core_pb2.Dataoutput(clocationinfo=result)
             dataoutput_list.append(dataoutput)
-        print("一共产生了" + str(len(result_list[0])) + "条关联告警")
+        print("一共产生了" + str(len(result_list)) + "条关联告警")
         # 返回响应
         return core_pb2.AlertResponse(dataresponse=dataoutput_list)
 

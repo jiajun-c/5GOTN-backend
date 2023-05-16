@@ -20,8 +20,8 @@ class AlertResponse(_message.Message):
 class AnalyseRequest(_message.Message):
     __slots__ = ["data"]
     DATA_FIELD_NUMBER: _ClassVar[int]
-    data: bytes
-    def __init__(self, data: _Optional[bytes] = ...) -> None: ...
+    data: _containers.RepeatedCompositeFieldContainer[DataStruct]
+    def __init__(self, data: _Optional[_Iterable[_Union[DataStruct, _Mapping]]] = ...) -> None: ...
 
 class AnalyseResponse(_message.Message):
     __slots__ = ["all_account", "level0", "level1", "level2", "level3"]
@@ -36,6 +36,24 @@ class AnalyseResponse(_message.Message):
     level2: int
     level3: int
     def __init__(self, all_account: _Optional[int] = ..., level0: _Optional[int] = ..., level1: _Optional[int] = ..., level2: _Optional[int] = ..., level3: _Optional[int] = ...) -> None: ...
+
+class DataStruct(_message.Message):
+    __slots__ = ["calarmcode", "calarmlevel", "clineport", "clocationinfo", "clogid", "cneid", "coccurutctime"]
+    CALARMCODE_FIELD_NUMBER: _ClassVar[int]
+    CALARMLEVEL_FIELD_NUMBER: _ClassVar[int]
+    CLINEPORT_FIELD_NUMBER: _ClassVar[int]
+    CLOCATIONINFO_FIELD_NUMBER: _ClassVar[int]
+    CLOGID_FIELD_NUMBER: _ClassVar[int]
+    CNEID_FIELD_NUMBER: _ClassVar[int]
+    COCCURUTCTIME_FIELD_NUMBER: _ClassVar[int]
+    calarmcode: int
+    calarmlevel: int
+    clineport: str
+    clocationinfo: str
+    clogid: int
+    cneid: int
+    coccurutctime: str
+    def __init__(self, clogid: _Optional[int] = ..., calarmcode: _Optional[int] = ..., cneid: _Optional[int] = ..., calarmlevel: _Optional[int] = ..., coccurutctime: _Optional[str] = ..., clocationinfo: _Optional[str] = ..., clineport: _Optional[str] = ...) -> None: ...
 
 class Datainput(_message.Message):
     __slots__ = ["clocationinfo"]

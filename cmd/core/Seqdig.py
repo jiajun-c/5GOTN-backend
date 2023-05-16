@@ -13,7 +13,10 @@ output_seqrules_path = '.\\output\\seqrules.csv'
 
 if __name__ == '__main__':
     data = dp.read_data(file_path)
+    #print(data)
+
     print('数据内部清洗前长度为',len(data))
+    print(data[0])
     # data = dp.Datacleaninside(data,300)
     # print('数据内部清洗后长度为',len(data))
     data = dp.Datacluster(data,eps=0.005)

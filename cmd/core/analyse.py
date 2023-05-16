@@ -18,6 +18,13 @@ def read_data(file_path):
         low_memory=False, encoding="gbk")
     data = df.values
     return data
+
+def read_data_new(file_path):
+    '''读取初始表数据，先转成csv格式'''
+    df = pd.read_csv( \
+        file_path, usecols=[0, 1, 2, 3, 4, 5, 6],low_memory=False, encoding="gbk")
+    data = df.values
+    return data
 def getdataByalarmlevel(data):
     '''
         根据alarmlevel划分数据
@@ -34,7 +41,7 @@ def getdataByalarmlevel(data):
             level3+=1
     return level0,level1,level2,level3
 def Analyse(file_path):
-    data = read_data(file_path)
+    data = read_data_new(file_path)
     level0, level1, level2, level3 = getdataByalarmlevel(data)
     all_account = level0 + level1 + level2 + level3
     return all_account,level0,level1,level2,level3

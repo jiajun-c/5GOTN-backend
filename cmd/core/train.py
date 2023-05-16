@@ -28,8 +28,17 @@ def read_data(file_path):
         low_memory=False, encoding="gbk")
     data = df.values
     return data
+
+def read_data_new(file_path):
+    '''读取初始表数据，先转成csv格式'''
+    df = pd.read_csv( \
+        file_path, usecols=[0, 1, 2, 3, 4, 5, 6],low_memory=False, encoding="gbk")
+    data = df.values
+    return data
 def Train(file_path):
-    data = read_data(file_path)
+
+    data = read_data_new(file_path)
+
     print('数据内部清洗前长度为', len(data))
     # 清洗数据，按照时间，端口号等进行聚类
     data = dp.Datacluster(data, eps=0.005)

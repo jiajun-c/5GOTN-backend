@@ -25,7 +25,12 @@ def read_data(file_path):
     data = df.values
     return data
 
-
+def read_data_new(file_path):
+    '''读取初始表数据，先转成csv格式'''
+    df = pd.read_csv( \
+        file_path, usecols=[0, 1, 2, 3, 4, 5, 6],low_memory=False, encoding="gbk")
+    data = df.values
+    return data
 def getContextofLocs(data):
     '''返回：
     所有数据的clocationinfo信息列表locs
