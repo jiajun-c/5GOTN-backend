@@ -1,5 +1,5 @@
 db:
-  dsn: postgres://admin:admin@0.0.0.0:5433/hust?sslmode=disable
+  dsn: postgres://admin:admin@5Gdb:5432/hust?sslmode=disable
   driver: postgres
 
 api:

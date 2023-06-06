@@ -10,21 +10,22 @@ services:
       POSTGRES_PASSWORD: admin
       TZ: Asia/Shanghai
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - "./data/db:/var/lib/postgresql/data"
       - "./scripts/init.sql:/docker-entrypoint-initdb.d/create_tables.sql"
 
-#  backend:
-#    image: walawalawala/otn-backend
-#    container_name: backend
-#    restart: on-failure
-#    ports:
-#      - "28080:8000"
-#    volumes:
-#      - "./config.yaml:/config.yaml"
-#    depends_on:
-#      - db
+  backend:
+    image: walawalawala/otn-backend
+    container_name: backend
+    restart: on-failure
+    ports:
+      - "28080:8000"
+    volumes:
+      - "./config.yaml:/config.yaml"
+    depends_on:
+      - db
+
   core:
     image: miaomiao86/core2.0
     container_name: core2.0

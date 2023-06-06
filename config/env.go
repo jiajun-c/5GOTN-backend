@@ -5,8 +5,8 @@ import (
 )
 
 func init() {
-	//err := Load("/config.yaml")
-	err := Load("/home/bot/workspace/5GOTN-backend/config.yaml")
+	err := Load("/config.yaml")
+	//err := Load("/home/bot/workspace/5GOTN-backend/config.yaml")
 	if err != nil {
 		panic(err)
 	}
