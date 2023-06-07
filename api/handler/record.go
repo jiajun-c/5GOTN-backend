@@ -24,8 +24,9 @@ func GetAllRecords(ctx *gin.Context) {
 			DeviceID:      record.DeviceID,
 			DeviceAddress: record.DeviceAddress,
 			DevicePort:    record.DevicePort,
-			WarningTime:   wt,
 			WarningCode:   record.WarningCode,
+			WarningTime:   wt,
+			WarningLevel:  record.WarningLevel,
 		}
 		resps = append(resps, resp)
 	}
