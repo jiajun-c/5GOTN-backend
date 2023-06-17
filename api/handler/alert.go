@@ -12,8 +12,12 @@ import (
 func Alert(ctx *gin.Context) {
 	addr := viper.GetString("rpc.addr")
 	conn, _ := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	locate := ctx.PostForm("locate")
-	ans, err := core.Alert(conn, &pb.AlertRequest{Datarequest: []*pb.Datainput{&pb.Datainput{Clocationinfo: locate}}})
+	locates := ctx.PostFormArray("locate")
+	requests := make([]*pb.Datainput, len(locates))
+	for index, locate := range locates {
+		requests[index] = &pb.Datainput{Clocationinfo: locate}
+	}
+	ans, err := core.Alert(conn, &pb.AlertRequest{Datarequest: requests})
 	if err != nil {
 		ctx.JSON(200, gin.H{"error": err})
 		return

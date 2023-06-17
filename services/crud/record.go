@@ -1,6 +1,7 @@
 package crud
 
 import (
+	log "github.com/sirupsen/logrus"
 	"otn/config"
 	"otn/dal"
 	"time"
@@ -28,6 +29,7 @@ func SelectRecords(start, end time.Time, device_id int64, device_address string)
 func InsertRecord(record *dal.Record) {
 	_, err := config.Db.Insert(record)
 	if err != nil {
+		log.Error(err)
 		return
 	}
 }

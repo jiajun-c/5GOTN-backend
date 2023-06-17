@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/appleboy/gin-jwt/v2 v2.9.1
 	github.com/gin-gonic/gin v1.9.0
+	github.com/gocarina/gocsv v0.0.0-20230614100527-2696de6cd848
 	github.com/lib/pq v1.10.2
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.15.0
